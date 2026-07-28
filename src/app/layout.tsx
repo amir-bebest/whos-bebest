@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Vazirmatn } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { assetPath } from "@/lib/paths";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -15,7 +16,7 @@ const vazirmatn = Vazirmatn({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amir-bebest.github.io";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://amir-bebest.github.io/whos-bebest";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,11 +39,11 @@ export const metadata: Metadata = {
   creator: "Amirhossein Farzaneh",
   icons: {
     icon: [
-      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: assetPath("/favicon-16.png"), sizes: "16x16", type: "image/png" },
+      { url: assetPath("/favicon-32.png"), sizes: "32x32", type: "image/png" },
+      { url: assetPath("/icon-192.png"), sizes: "192x192", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: assetPath("/apple-touch-icon.png"), sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     type: "website",
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
       "Full Stack Developer focused on Next.js, Node.js, WordPress, and AI-powered digital products.",
     images: [
       {
-        url: "/brand/logo-icon-dark.png",
+        url: assetPath("/brand/logo-icon-dark.png"),
         width: 512,
         height: 512,
         alt: "Amirhossein Farzaneh Logo",
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     title: "Amirhossein Farzaneh | Full Stack Developer",
     description:
       "Full Stack Developer focused on Next.js, Node.js, WordPress, and AI-powered digital products.",
-    images: ["/brand/logo-icon-dark.png"],
+    images: [assetPath("/brand/logo-icon-dark.png")],
   },
   robots: {
     index: true,

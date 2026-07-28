@@ -5,6 +5,7 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { useLocale } from "@/components/locale-provider";
 import { siteConfig } from "@/lib/content";
+import { assetPath } from "@/lib/paths";
 import { easeOut, fadeUpItem, stagger } from "@/lib/motion";
 
 export function Hero() {
@@ -109,7 +110,7 @@ export function Hero() {
                 playsInline
                 preload="metadata"
               >
-                <source src={siteConfig.video} type="video/mp4" />
+                <source src={assetPath(siteConfig.video)} type="video/mp4" />
               </video>
             </div>
           </motion.div>

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Section } from "@/components/section";
 import { useLocale } from "@/components/locale-provider";
 import { siteConfig } from "@/lib/content";
+import { assetPath } from "@/lib/paths";
 
 export function About() {
   const { locale, t } = useLocale();
@@ -17,11 +18,12 @@ export function About() {
       <div className="grid items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="hero-photo relative mx-auto w-full max-w-[18rem] lg:mx-0">
           <Image
-            src={siteConfig.image}
+            src={assetPath(siteConfig.image)}
             alt={siteConfig.name[locale]}
             fill
             sizes="288px"
             className="object-cover object-[center_12%]"
+            unoptimized
           />
         </div>
 
