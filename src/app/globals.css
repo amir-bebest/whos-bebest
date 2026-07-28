@@ -1,26 +1,352 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Brand Design System — Amirhossein Farzaneh */
 :root {
+  --primary: #2563eb;
+  --secondary: #06b6d4;
+  --accent: #14f195;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --foreground: #0f172a;
+  --text-secondary: #334155;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --hover: #eff6ff;
+
+  --radius: 20px;
+  --radius-btn: 14px;
+  --radius-input: 16px;
+  --radius-image: 24px;
+
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 25px 80px rgba(37, 99, 235, 0.16);
+  --gradient: linear-gradient(135deg, #2563eb 0%, #06b6d4 55%, #14f195 100%);
+
+  --container: 80rem;
+  --header-h: 4.25rem;
+}
+
+.dark {
+  --background: #070b14;
+  --surface: #111827;
+  --surface-2: #0f172a;
+  --foreground: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --muted: #94a3b8;
+  --border: #1e293b;
+  --hover: #172554;
+
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 25px 80px rgba(37, 99, 235, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-muted: var(--muted);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border);
+  --color-hover: var(--hover);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-jakarta);
+  --font-fa: var(--font-vazirmatn);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+}
+
+html[lang="fa"] body,
+html[dir="rtl"] body {
+  font-family: var(--font-vazirmatn), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--primary) 35%, transparent);
+  color: var(--foreground);
+}
+
+.ds-atmosphere {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.ds-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(600px 420px at 8% 0%, rgba(37, 99, 235, 0.22), transparent 60%),
+    radial-gradient(520px 380px at 92% 100%, rgba(20, 241, 149, 0.16), transparent 55%),
+    radial-gradient(480px 320px at 70% 10%, rgba(6, 182, 212, 0.12), transparent 50%),
+    var(--background);
+}
+
+.ds-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--border) 80%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 80%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 20%, black, transparent 75%);
+}
+
+.dark .ds-atmosphere::after {
+  opacity: 0.18;
+}
+
+.ds-container {
+  width: min(100% - 2.5rem, var(--container));
+  margin-inline: auto;
+}
+
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--secondary);
+}
+
+.ds-eyebrow::before {
+  content: "";
+  width: 1.4rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--gradient);
+}
+
+.ds-title {
+  font-size: clamp(1.9rem, 3vw, 2.625rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.ds-lead {
+  max-width: 42rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.btn-primary,
+.btn-secondary,
+.icon-link,
+.panel,
+.project-card,
+.skill-card {
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease,
+    background-color 250ms ease,
+    border-color 250ms ease,
+    opacity 250ms ease;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.panel:hover,
+.project-card:hover,
+.skill-card:hover {
+  transform: translateY(-4px);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-btn);
+  background: var(--gradient);
+  color: #fff;
+  padding: 0.85rem 1.3rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 14px 34px -16px rgba(37, 99, 235, 0.7);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--foreground);
+  padding: 0.85rem 1.3rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.btn-secondary:hover {
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  color: var(--foreground);
+  backdrop-filter: blur(10px);
+}
+
+.icon-link:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.1);
+  transform: translateY(-4px);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.panel,
+.skill-card,
+.project-card {
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.panel:hover,
+.skill-card:hover,
+.project-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  box-shadow: var(--shadow-hover);
+}
+
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  padding: 1rem 1.1rem;
+  color: var(--muted);
+  backdrop-filter: blur(12px);
+  transition: transform 250ms ease, border-color 250ms ease, background-color 250ms ease;
+}
+
+.contact-row:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
+  background: var(--hover);
+}
+
+.field {
+  width: 100%;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border);
+  background: var(--background);
+  padding: 0.85rem 1rem;
+  color: var(--foreground);
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 250ms ease, box-shadow 250ms ease;
+}
+
+.field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.nav-link {
+  position: relative;
+  color: var(--muted);
+  transition: color 250ms ease;
+}
+
+.nav-link:hover {
+  color: var(--foreground);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.4rem;
+  height: 2px;
+  border-radius: 999px;
+  transform: scaleX(0);
+  background: var(--gradient);
+  transition: transform 250ms ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.hero-logo {
+  width: min(100%, 22rem);
+  aspect-ratio: 1;
+  border-radius: var(--radius-image);
+  border: 1px solid var(--border);
+  background: #070b14;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.hero-photo {
+  width: min(100%, 20rem);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-image);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
